@@ -1,10 +1,226 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Test</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Orunodoi Smart Verifier</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
+
 <body>
-    <h1>Orunodoi Smart Verifier</h1>
-    <p>Created by Ankur Dowarah</p>
+
+<div class="container">
+
+    <header>
+
+        <h1>Orunodoi Smart Verifier</h1>
+
+        <p>Designed & Developed by <b>Ankur Dowarah</b></p>
+
+    </header>
+
+    <div class="card">
+
+        <h2>📂 Upload Excel File</h2>
+
+        <input type="file" id="excelFile">
+
+        <button id="uploadBtn">
+            Upload Excel
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h2>📊 Excel Preview</h2>
+
+        <table id="previewTable">
+
+            <thead>
+
+            <tr>
+
+                <th>Sl No</th>
+
+                <th>Beneficiary</th>
+
+                <th>RC Number</th>
+
+                <th>Village</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+                <td colspan="4">
+
+                    No Excel Uploaded
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="card">
+
+        <h2>⚙ Verification Settings</h2>
+
+        <div class="grid">
+
+            <div>
+
+                <label>
+
+                    Beneficiary Column
+
+                </label>
+
+                <select id="beneficiaryColumn">
+
+                    <option>Select</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>
+
+                    RC Column
+
+                </label>
+
+                <select id="rcColumn">
+
+                    <option>Select</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>
+
+                    Start Row
+
+                </label>
+
+                <input type="number" value="3">
+
+            </div>
+
+            <div>
+
+                <label>
+
+                    End Row
+
+                </label>
+
+                <input type="number" value="2000">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <button class="startBtn">
+
+            START VERIFICATION
+
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h2>📈 Progress</h2>
+
+        <div class="progress">
+
+            <div class="progressBar" id="progressBar"></div>
+
+        </div>
+
+        <h3 id="progressText">
+
+            Waiting...
+
+        </h3>
+
+        <br>
+
+        <table>
+
+            <tr>
+
+                <td>Current RC</td>
+
+                <td id="currentRC">-</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Current Beneficiary</td>
+
+                <td id="currentName">-</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Status</td>
+
+                <td id="currentStatus">Idle</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <footer>
+
+        Version 1.0
+
+        <br>
+
+        © 2026
+
+        <br>
+
+        Designed & Developed by
+
+        <b>Ankur Dowarah</b>
+
+    </footer>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
+
 </html>
