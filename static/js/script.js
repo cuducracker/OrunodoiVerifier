@@ -1,91 +1,86 @@
 const uploadBtn = document.getElementById("uploadBtn");
-
 const fileInput = document.getElementById("excelFile");
 
-uploadBtn.addEventListener(
+const toggle = document.getElementById("togglePreview");
+const preview = document.getElementById("previewContainer");
 
-    "click",
+toggle.addEventListener("click", () => {
 
-    async () => {
+    if (preview.style.display === "none" || preview.style.display === "") {
 
-        if (fileInput.files.length === 0) {
+        preview.style.display = "block";
 
-            alert("Please select an Excel file.");
-
-            return;
-
-        }
-
-        const formData = new FormData();
-
-        formData.append(
-
-            "file",
-
-            fileInput.files[0]
-
-        );
-
-        const response = await fetch(
-
-            "/upload",
-
-            {
-
-                method: "POST",
-
-                body: formData
-
-            }
-
-        );
-
-        const data = await response.json();
-
-        if (!data.success) {
-
-            alert(data.message);
-
-            return;
-
-        }
-
-        buildPreview(
-
-            data.preview
-
-        );
-
-        buildColumns(
-
-            data.columns
-
-        );
+        toggle.textContent = "Hide Preview";
 
     }
 
-);
+    else {
 
+        preview.style.display = "none";
+
+        toggle.textContent = "Show Preview";
+
+    }
+
+});
+
+uploadBtn.addEventListener("click", async () => {
+
+    if (fileInput.files.length === 0) {
+
+        alert("Please select an Excel file.");
+
+        return;
+
+    }
+
+    const formData = new FormData();
+
+    formData.append("file", fileInput.files[0]);
+
+    const response = await fetch("/upload", {
+
+        method: "POST",
+
+        body: formData
+
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+
+        alert(data.message);
+
+        return;
+
+    }
+
+    buildPreview(data.preview);
+
+    if (data.columns) {
+
+        buildColumns(data.columns);
+
+    }
+
+});
 
 function buildPreview(rows) {
 
-    const tbody = document.querySelector(
-
-        "#previewTable tbody"
-
-    );
+    const tbody = document.querySelector("#previewTable tbody");
 
     tbody.innerHTML = "";
 
     rows.forEach(row => {
 
-        let tr = document.createElement("tr");
+        const tr = document.createElement("tr");
 
         row.forEach(cell => {
 
-            let td = document.createElement("td");
+            const td = document.createElement("td");
 
-            td.innerText = cell;
+            td.textContent = cell;
 
             tr.appendChild(td);
 
@@ -97,34 +92,25 @@ function buildPreview(rows) {
 
 }
 
-
 function buildColumns(columns) {
 
-    const beneficiary = document.getElementById(
+    const beneficiary = document.getElementById("beneficiaryColumn");
+    const rc = document.getElementById("rcColumn");
 
-        "beneficiaryColumn"
+    if (!beneficiary || !rc) {
 
-    );
+        return;
 
-    const rc = document.getElementById(
-
-        "rcColumn"
-
-    );
+    }
 
     beneficiary.innerHTML = "";
-
     rc.innerHTML = "";
 
     columns.forEach(column => {
 
-        beneficiary.innerHTML +=
+        beneficiary.innerHTML += `<option value="${column}">${column}</option>`;
 
-        `<option>${column}</option>`;
-
-        rc.innerHTML +=
-
-        `<option>${column}</option>`;
+        rc.innerHTML += `<option value="${column}">${column}</option>`;
 
     });
 

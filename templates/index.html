@@ -39,41 +39,51 @@
 
     <div class="card">
 
-        <h2>📊 Excel Preview</h2>
+    <h2>📋 Uploaded File Summary</h2>
+
+    <div class="info-box">
+
+        <p>
+            <b>Required Columns</b>
+        </p>
+
+        <ul>
+
+            <li>✔ SL. NO</li>
+
+            <li>✔ Beneficiary Name</li>
+
+            <li>✔ RC Number</li>
+
+            <li>✔ Village (Optional)</li>
+
+        </ul>
+
+        <p>
+
+            Other columns will be ignored automatically.
+
+        </p>
+
+    </div>
+
+    <button id="togglePreview">
+
+        Show Preview
+
+    </button>
+
+    <div id="previewContainer" style="display:none;overflow:auto;max-height:350px;">
 
         <table id="previewTable">
 
-            <thead>
+            <thead></thead>
 
-            <tr>
-
-                <th>Sl No</th>
-
-                <th>Beneficiary</th>
-
-                <th>RC Number</th>
-
-                <th>Village</th>
-
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-            <tr>
-
-                <td colspan="4">
-
-                    No Excel Uploaded
-
-                </td>
-
-            </tr>
-
-            </tbody>
+            <tbody></tbody>
 
         </table>
+
+    </div>
 
     </div>
 
