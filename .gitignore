@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
+
+# Output folders
+output/
+uploads/
+logs/
+
+# VS Code
+.vscode/
+
+# Sample and generated Excel files
+*.xlsx
+~$*.xlsx
+
+# Playwright
+.playwright/
+ms-playwright/
+
+# Environment variables
+.env
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
