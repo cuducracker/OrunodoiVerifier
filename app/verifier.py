@@ -70,17 +70,43 @@ class Verifier:
             family_members = self.bot.search_rc(rc_number)
 
             self.cache.save(
+
                 rc_number,
+
                 family_members
+
             )
+
+        # ===========================
+        # No Result Found
+        # ===========================
+
+        if not family_members:
+
+            record["family_members"] = ""
+
+            record["matched_name"] = ""
+
+            record["match_score"] = 0
+
+            record["found"] = False
+
+            record["status"] = "NOT FOUND"
+
+            record["remarks"] = "No member details found."
+
+            return record
 
         # ===========================
         # Compare Names
         # ===========================
 
         result = self.matcher.compare(
+
             beneficiary,
+
             family_members
+
         )
 
         # ===========================

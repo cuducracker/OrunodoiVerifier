@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-
+from flask_cors import CORS
 from app.routes import register_routes
 
 app = Flask(
@@ -12,9 +12,11 @@ app = Flask(
 
 )
 
+
+CORS(app, origins=[
+    "https://ank-ldb.blogspot.com"
+])
 register_routes(app)
-
-
 @app.route("/")
 def home():
 

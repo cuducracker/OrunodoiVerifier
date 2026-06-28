@@ -1,3 +1,6 @@
+from fileinput import filename
+from app.logger import logger
+from numpy import rint
 from openpyxl import Workbook
 from openpyxl.styles import Font
 from datetime import datetime
@@ -108,15 +111,30 @@ class ReportGenerator:
         # Create Output Folder
         os.makedirs("output", exist_ok=True)
 
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        filename = f"Orunodoi_Report_{timestamp}.xlsx"
+
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+        OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+
         output_path = os.path.join(
-            "output",
-            "Output.xlsx"
-        )
+    OUTPUT_DIR,
+    filename
+)
 
         self.workbook.save(output_path)
 
         print()
 
-        print("Output Saved Successfully")
+        logger.success("Output Saved Successfully")
 
         print(output_path)
+
+        return output_path
+
+
+       

@@ -10,53 +10,43 @@ def main():
 
     print("=" * 60)
     print("ORUNODOI SMART VERIFIER")
+    print("Version : 1.0")
     print("Designed & Developed by Ankur Dowarah")
     print("=" * 60)
 
-    file_path = input(
-        "\nEnter Excel File Path : "
-    ).strip()
+    file_path = input("\nEnter Excel File Path : ").strip()
 
     if not os.path.exists(file_path):
 
-        print("\nExcel file not found.")
-
+        print("\n❌ Excel file not found.")
         return
 
     beneficiary_column = input(
         "Beneficiary Column (Example B): "
-    ).upper()
+    ).strip().upper()
 
     rc_column = input(
         "RC Number Column (Example C): "
-    ).upper()
+    ).strip().upper()
 
     rows = input(
         "Rows (Example 3-2000): "
-    )
+    ).strip()
 
-    start_row, end_row = map(
-        int,
-        rows.split("-")
-    )
+    start_row, end_row = map(int, rows.split("-"))
 
     excel = ExcelHandler()
 
     excel.load_excel(file_path)
 
     records = excel.get_records(
-
         beneficiary_column=beneficiary_column,
-
         rc_column=rc_column,
-
         start_row=start_row,
-
         end_row=end_row
-
     )
 
-    print(f"\nRecords Loaded : {len(records)}")
+    print(f"\n✓ Records Loaded : {len(records)}")
 
     verifier = Verifier()
 
@@ -66,49 +56,46 @@ def main():
 
     start_time = time.time()
 
-    for index, record in enumerate(records, start=1):
+    try:
 
-        print()
+        for index, record in enumerate(records, start=1):
 
-        print("-" * 50)
+            print("\n" + "-" * 60)
 
-        print(
+            print(
+                f"[{index}/{len(records)}] "
+                f"{record['beneficiary']} "
+                f"({record['rc_number']})"
+            )
 
-            f"{index}/{len(records)}",
+            verified = verifier.verify_record(record)
 
-            record["beneficiary"]
+            results.append(verified)
 
-        )
+    finally:
 
-        verified = verifier.verify_record(record)
-
-        results.append(verified)
-
-    verifier.stop()
+        verifier.stop()
 
     report = ReportGenerator()
 
-    report.generate(results)
+    output_file = report.generate(results)
 
     end_time = time.time()
 
-    print()
+    print("\n" + "=" * 60)
+
+    print("✓ Verification Completed")
 
     print("=" * 60)
 
-    print("Verification Completed")
-
-    print(f"Total Records : {len(results)}")
+    print(f"Total Records   : {len(results)}")
 
     print(
-
-        f"Time Taken : "
-
-        f"{round(end_time-start_time,2)} sec"
-
+        f"Time Taken      : "
+        f"{round(end_time-start_time,2)} seconds"
     )
 
-    print("Output Saved in output/Output.xlsx")
+    print(f"Report Saved    : {output_file}")
 
     print("=" * 60)
 
