@@ -1,29 +1,131 @@
-const progress=document.getElementById("progressBar");
+const uploadBtn = document.getElementById("uploadBtn");
 
-const text=document.getElementById("progressText");
+const fileInput = document.getElementById("excelFile");
 
-let value=0;
+uploadBtn.addEventListener(
 
-document.querySelector(".startBtn").onclick=function(){
+    "click",
 
-value=0;
+    async () => {
 
-const timer=setInterval(()=>{
+        if (fileInput.files.length === 0) {
 
-value++;
+            alert("Please select an Excel file.");
 
-progress.style.width=value+"%";
+            return;
 
-text.innerHTML="Verification Running : "+value+"%";
+        }
 
-if(value>=100){
+        const formData = new FormData();
 
-clearInterval(timer);
+        formData.append(
 
-text.innerHTML="Verification Completed";
+            "file",
+
+            fileInput.files[0]
+
+        );
+
+        const response = await fetch(
+
+            "/upload",
+
+            {
+
+                method: "POST",
+
+                body: formData
+
+            }
+
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            alert(data.message);
+
+            return;
+
+        }
+
+        buildPreview(
+
+            data.preview
+
+        );
+
+        buildColumns(
+
+            data.columns
+
+        );
+
+    }
+
+);
+
+
+function buildPreview(rows) {
+
+    const tbody = document.querySelector(
+
+        "#previewTable tbody"
+
+    );
+
+    tbody.innerHTML = "";
+
+    rows.forEach(row => {
+
+        let tr = document.createElement("tr");
+
+        row.forEach(cell => {
+
+            let td = document.createElement("td");
+
+            td.innerText = cell;
+
+            tr.appendChild(td);
+
+        });
+
+        tbody.appendChild(tr);
+
+    });
 
 }
 
-},40);
+
+function buildColumns(columns) {
+
+    const beneficiary = document.getElementById(
+
+        "beneficiaryColumn"
+
+    );
+
+    const rc = document.getElementById(
+
+        "rcColumn"
+
+    );
+
+    beneficiary.innerHTML = "";
+
+    rc.innerHTML = "";
+
+    columns.forEach(column => {
+
+        beneficiary.innerHTML +=
+
+        `<option>${column}</option>`;
+
+        rc.innerHTML +=
+
+        `<option>${column}</option>`;
+
+    });
 
 }
