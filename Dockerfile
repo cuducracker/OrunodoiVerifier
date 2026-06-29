@@ -1,5 +1,5 @@
 # We switch from -jammy to -noble to get Python 3.12, which fully supports Pandas 3.0+
-FROM mcr.microsoft.com/playwright/python:v1.44.0-noble
+FROM mcr.microsoft.com/playwright/python:v1.50.0-noble
 
 # Set the working directory inside the container
 WORKDIR /app
