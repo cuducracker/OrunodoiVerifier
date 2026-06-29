@@ -10,10 +10,10 @@ body{
 }
 
 .container{
-    width:90%;
+    width:100%;
     max-width:1400px;
-    margin:auto;
-    padding:30px;
+    margin:0 auto;
+    padding:20px;
 }
 
 header{
