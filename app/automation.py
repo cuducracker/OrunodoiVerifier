@@ -23,7 +23,11 @@ class EposAutomation:
 
             headless=True,
             args=[
-                "--disable-blink-features=AutomationControlled"
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox", 
+                "--disable-setuid-sandbox", 
+                "--disable-dev-shm-usage", 
+                "--disable-gpu"
                 ]
 
         )
