@@ -107,7 +107,8 @@ button:hover{
 #previewContainer{
     display:none;
     margin-top:20px;
-    overflow:auto;
+    overflow-x:auto;
+    overflow-y:visible;
     max-height:450px;
     border:1px solid #ddd;
     border-radius:10px;
@@ -116,7 +117,7 @@ button:hover{
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:900px;
+    min-width:700px;
 }
 
 th,
